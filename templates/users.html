@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div class="conteiner" style="display: flex; align-items: center; flex-flow: column;">
+        <h1>{{ title }}</h1><br><br>
+        {% for user in users %}
+        <div id="usrdiv"><a id="usrlink" href="/profile/{{user.id}}"><img
+                class="mini-avatar" src="/assets/photos/{{user.photo_link}}" width="50" height="50"
+                alt=""><span id="usrtext">{{user.name}} {{user.surname}}</span></a></div>
+        {% endfor %}
+    </div>
+</div>
+<nav aria-label="...">
+    <center>
+        <ul class="pagination" style="display: inline-flex;">
+            <li class="page-item {% if cur_page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="?page={{ cur_page - 1 }}" tabindex="-1">Previous</a>
+            </li>
+            {% for i in range(1, num + 1) %}
+                {% if i != cur_page %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ i }}">{{ i }} <span class="sr-only">(current)</span></a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            <li class="page-item  {% if cur_page == num %}disabled{% endif %}">
+                <a class="page-link" href="?page={{ cur_page + 1 }}">Next</a>
+            </li>
+        </ul>
+    </center>
+</nav>
+<br>
+{% endblock %}
